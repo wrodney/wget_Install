@@ -1,0 +1,54 @@
+wget is a non-interactive command-line utility for download resources from a specified URL. Because it is non-interactive, wget can work in the background or before the user even logs in. The program was designed especially for poor connections, making it especially robust in otherwise flaky conditions. While wget isn’t shipped with macOS, it can be easily downloaded and installed with Homebrew, the best Mac package manager available.
+
+1. Download and Install Homebrew
+homebrew-package-manager-macos-5
+To install Homebrew, open a Terminal window and execute the following command taken from Homebrew’s website:
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+You might notice the command called curl, which is a different command-line utility for downloading files from a URL that ships within the Ruby installation included on macOS.
+
+2. Installing wget
+using-wget-macos-install-wget-homebrew
+Once it has completed installing itself, we will use Homebrew to install wget. In Terminal, run the following command to download and install wget:
+
+brew install wget
+You’ll get live updates on the progress of downloading and installing whatever dependencies (software prerequisites) are required to run wget on your system.
+
+If you already have Homebrew installed, be sure to run brew update to get the latest copies of all your formulae.
+3. Using wget
+using-wget-macos-terminal-window
+The purpose of wget is downloading content from URLs. It’s a quick and simple non-interactive tool for downloading files from any publicly accessible URL.
+
+Download a single file
+Like the similar command curl, wget takes a remote resource from a URL and saves it to a specified location on your computer. The command’s structure works like so:
+
+wget -O path/to/local.copy http://example.com/url/to/download.html
+That will save the file specified in the URL to the location specified on your machine. If the -O flag is excluded, the specified URL will be downloaded to the present working directory.
+
+Download a directory recursively
+To download an entire directory tree with wget, you need to use the -r/--recursive and -np/--no-parent flags, like so:
+
+wget -e robots=off -r -np https://www.w3.org/History/19921103-hypertext/hypertext/
+This will cause wget to follow any links found on the documents within the specified directory, recursively downloading the entire specified URL path.
+That command also includes -e robots=off, which ignores restrictions in the robots.txt file. In general, it’s a good idea to disable robots.txt to prevent abridged downloads.
+
+Other wget Flags
+In addition to the flags above, this selected handful of wget’s flags are the most useful:
+
+Controlling the download
+wget -X /absolute/path/to/directory will exclude a specific directory on the remote server.
+wget -nH removes the hostname directories. Remember, the hostname is the part of the URL that contains the domain name and ends in a TLD like “.com.” For example, the folder named “www.w3.org” in our previous example would be skipped, starting the download with the “History” directory instead.
+wget --cut-dirs=# skips the specified number of directories down the URL before starting to download files. For example, -nH --cut-dirs=1  would change the specified path of “ftp.xemacs.org/pub/xemacs/” into simply “/xemacs/,” reducing the number of empty parent directories in the local download.
+wget -R index.html/wget --reject index.html will skip any files matching the specified file name. In this case it will exclude all the index files. The * character can be used as a wildcard, like “*.png,” which would skip all files with the PNG extension.
+wget -i file specifies target URLs from an input file. The input file must be an HTML file or be parsed as HTML with the additional flag --force-html
+wget -nc/wget --no-clobber will not overwrite files that already exist in the destination.
+wget -c/wget --continue will continue downloads of partially downloaded files.
+wget -t 10 will try to download the resource up to 10 times before failing.
+Adjusting the level of logging
+wget -d enables debugging output.
+wget -o path/to/log.txt enables logging output to the specified directory instead of displaying the log-in standard output.
+wget -q turns off all of wget’s output, including error messages.
+wget -v explicitly enables wget’s default of verbose output.
+wget --no-verbose turns off log messages but displays error messages.
+Conclusion
+While that should cover the majority of wget use cases, the downloader is capable of much more. For a full description of wget’s capabilities, you can review wget’s GNU man page online.
